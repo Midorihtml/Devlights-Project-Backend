@@ -7,6 +7,7 @@ Este proyecto es un backend en Node.js con TypeScript y MongoDB, usando Express 
 - Node.js >= 18
 - npm >= 9
 - MongoDB (local o remoto)
+- docker docker-compose
 
 ## Instalación
 
@@ -23,7 +24,13 @@ Este proyecto es un backend en Node.js con TypeScript y MongoDB, usando Express 
    npm install
    ```
 
-3. Configura las variables de entorno:
+3. Iniciar mongoDB:
+
+   ```bash
+   docker compose up -d
+   ```
+
+4. Configura las variables de entorno:
    - Crea un archivo `.env` en la raíz con el siguiente contenido:
     ```env
     NODE_ENV=develop
@@ -37,7 +44,7 @@ Este proyecto es un backend en Node.js con TypeScript y MongoDB, usando Express 
     ```
    - Ajusta los valores según tu entorno.
 
-4. Inicia el servidor:
+5. Inicia el servidor:
    ```bash
    npm run dev
    ```
