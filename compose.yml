@@ -1,0 +1,10 @@
+services:
+  mongo-devlights:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_DATABASE: ${MONGO_INITDB_ROOT_DATABASE}
+    ports:
+      - ${MONGO_INITDB_PORT}:${MONGO_INITDB_PORT}
