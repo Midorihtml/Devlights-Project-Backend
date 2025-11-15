@@ -1,5 +1,6 @@
 services:
   mongo-devlights:
+    container_name: mongo-devlights
     image: mongo
     restart: always
     environment:
@@ -8,3 +9,5 @@ services:
       MONGO_INITDB_ROOT_DATABASE: ${MONGO_INITDB_ROOT_DATABASE}
     ports:
       - ${MONGO_INITDB_PORT}:${MONGO_INITDB_PORT}
+    volumes:
+      - ./mongo_data:/data/db
