@@ -1,17 +1,24 @@
-// import express from "express";
-// import morgan from "morgan";
+import express from "express";
+import morgan from "morgan";
+import dotenv from "dotenv";
 
-// const app = express();
+import { connectDB } from "@src/database/mongo";
+import { authRouter } from "@src/routes/authRouter";
+import { handleErrors } from "@src/middlewares/handleErrors";
 
-// const PORT = process.env.PORT || 3000;
-// const HOST = process.env.HOST || "localhost";
-// const PROTOCOL = process.env.NODE_ENV === "production" ? "https" : "http";
+const app = express();
 
-// app.use(express.json());
-// app.use(morgan("tiny"));
-// //
-// app.get("/", (req, res, next) => {
-//   res.send("holaaa");
-// });
+dotenv.config();
 
-// export default app;
+const URI = process.env["MONGO_CONNECTION_URI"] || "";
+
+await connectDB(URI);
+
+app.use(express.json());
+app.use(morgan("tiny"));
+
+app.use("/auth", authRouter);
+
+app.use(handleErrors);
+
+export { app };
