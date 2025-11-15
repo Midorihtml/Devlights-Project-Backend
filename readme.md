@@ -26,10 +26,16 @@ Este proyecto es un backend en Node.js con TypeScript y MongoDB, usando Express 
 3. Configura las variables de entorno:
    - Crea un archivo `.env` en la raíz con el siguiente contenido:
      ```env
-     PORT=PORT
-     HOST=HOST
-     NODE_ENV=NODE_ENV
-     MONGO_CONNECTION_URI=MONGO_CONNECTION_URI
+    NODE_ENV=develop
+    
+    PORT=3000
+    HOST=localhost
+    
+    MONGO_INITDB_ROOT_USERNAME=example
+    MONGO_INITDB_ROOT_PASSWORD=exmaple
+    MONGO_INITDB_ROOT_DATABASE=example
+    MONGO_INITDB_PORT=27017
+    MONGO_CONNECTION_URI="mongodb://user:password@host:port/database?authSource=admin"
      ```
    - Ajusta los valores según tu entorno.
 
