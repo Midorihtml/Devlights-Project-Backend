@@ -1,12 +1,6 @@
 import bcrypt from "bcryptjs";
-import type { IUserRepository } from "../repositories/MongoUserRepository.ts";
-
-export type TUser = {
-  name: string;
-  lastname: string;
-  email: string;
-  password: string;
-};
+import type { IUserRepository } from "@src/interfaces/IUserRepository";
+import type { TUser } from "@src/types/TUser";
 
 export class AuthService {
   userRepository: IUserRepository;
@@ -15,7 +9,12 @@ export class AuthService {
     this.userRepository = userRepository;
   }
 
+  findAll = () => {
+    return this.userRepository.findAll();
+  };
+
   login = () => {};
+
   register = (newUser: TUser) => {
     const salt = bcrypt.genSaltSync(10);
     newUser.password = bcrypt.hashSync(newUser.password, salt);
@@ -23,6 +22,8 @@ export class AuthService {
     return this.userRepository.createUser(newUser);
   };
   forgot = () => {};
+
   update = () => {};
+
   delete = () => {};
 }

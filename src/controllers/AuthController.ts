@@ -1,5 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import type { AuthService } from "../services/AuthServices.ts";
+import type { AuthService } from "@src/services/AuthService";
+import { BadRequestException } from "@src/exceptions/BadRequestException";
+import { DatabaseException } from "@src/exceptions/DatabaseException";
 
 export class AuthController {
   authService: AuthService;
@@ -8,46 +10,33 @@ export class AuthController {
     this.authService = authService;
   }
 
-  getAll = (req: Request, res: Response, next: NextFunction) => {
-    res.send("holaaaa");
+  findAll = async (_: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await this.authService.findAll();
+      res.send({ code: 200, msg: "success", data: users });
+    } catch (error) {
+      next(error);
+    }
   };
 
   login = (req: Request, res: Response, next: NextFunction) => {};
+
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password, name, lastname } = req.body;
       if (!email || !password || !name || !lastname)
-        res.status(400).send({
-          msg: "Datos incompletos.",
-          codigo: 400,
-          data: [],
-        });
+        throw new BadRequestException("Datos invalidos.");
 
       const newUser = await this.authService.register(req.body);
+      if (!newUser) throw new DatabaseException("Error al registrar usuario.");
 
-      if (!newUser) {
-        next({
-          message: "No se pudo registrar el usuario",
-          context: req.body,
-        });
-        res.status(500).send({
-          msg: "No se pudo registrar el usuario.",
-          codigo: 500,
-          data: [],
-        });
-      }
-      return res.status(201).send({
+      res.status(201).send({
+        code: 201,
         msg: "Usuario registrado correctamente.",
-        codigo: 201,
-        data: [],
+        data: null,
       });
-    } catch (error: any) {
-      next({ message: error.message, context: { saludo: "hola" } });
-      res.status(500).send({
-        msg: error.message,
-        codigo: 500,
-        data: [],
-      });
+    } catch (error) {
+      next(error);
     }
   };
   forgot = (req: Request, res: Response, next: NextFunction) => {};

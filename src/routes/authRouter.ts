@@ -1,15 +1,16 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/AuthController.ts";
-import { AuthService } from "../services/AuthServices.ts";
-import { UserRepository } from "../repositories/MongoUserRepository.ts";
+
+import { AuthController } from "@src/controllers/AuthController";
+import { MongoUserRepository } from "@src/repositories/MongoUserRepository";
+import { AuthService } from "@src/services/AuthService";
 
 const authRouter = Router();
 
-const authRepository = new UserRepository();
+const authRepository = new MongoUserRepository();
 const authService = new AuthService(authRepository);
 const authController = new AuthController(authService);
 
-authRouter.get("/", authController.getAll);
+authRouter.get("/", authController.findAll);
 authRouter.post("/login", authController.login);
 authRouter.post("/register", authController.register);
 authRouter.post("/forgot", authController.forgot);

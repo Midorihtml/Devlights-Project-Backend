@@ -1,14 +1,13 @@
-import { User, type IUser } from "../models/userSchema.ts";
-import type { TUser } from "../services/AuthServices.ts";
+import type { IUserRepository } from "@src/interfaces/IUserRepository";
+import type { IUser } from "@src/interfaces/IUser";
+import { User } from "@src/models/userSchema";
+import type { TUser } from "@src/types/TUser";
 
-export interface IUserRepository {
-  createUser: (newUser: TUser) => Promise<IUser>;
-  //   findByEmail(email: string): Promise<IUser | null>;
-  //   updateUser(id: string, update: Partial<IUser>): Promise<IUser | null>;
-  //   deleteUser(id: string): Promise<boolean>;
-}
+export class MongoUserRepository implements IUserRepository {
+  findAll = async () => {
+    return await User.find();
+  };
 
-export class UserRepository implements IUserRepository {
   createUser = async (newUser: TUser): Promise<IUser> => {
     return await User.create(newUser);
   };
