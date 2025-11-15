@@ -1,0 +1,67 @@
+{
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "mongo_data"],
+
+  "compilerOptions": {
+    /* ============================
+       FILE LAYOUT
+       ============================ */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* ============================
+       PATH ALIASES (IMPORTS)
+       ============================ */
+    "baseUrl": "./src",
+    "paths": {
+      "@src/*": ["./*"]
+    },
+
+    /* ============================
+       ENVIRONMENT SETTINGS
+       ============================ */
+    "module": "ESNext",              // usa import/export nativos
+    "moduleResolution": "Node",      // resolución de módulos estilo Node
+    "target": "ES2022",              // output moderno compatible con Node
+    "lib": ["ES2022"],               // API moderna de JS
+
+    "esModuleInterop": true,         // permite: import express from "express"
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,       // permite importar JSON
+    "types": ["node", "express"],    // types disponibles
+
+    /* ============================
+       OUTPUT EXTRAS
+       ============================ */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* ============================
+       STRICT TYPE CHECKING
+       ============================ */
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* ============================
+       QUALITY RULES
+       ============================ */
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* ============================
+       NODE-SPECIFIC OPTIMIZATIONS
+       ============================ */
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
+  }
+}
