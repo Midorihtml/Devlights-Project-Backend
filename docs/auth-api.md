@@ -22,16 +22,16 @@
     }
     ```
 - **Ejemplo cURL:**
-  ```bash
-  curl -X POST http://localhost:3000/auth/register \
-    -H "Content-Type: application/json" \
-    -d '{
-      "name": "Juan",
-      "lastname": "Pérez",
-      "email": "juan@example.com",
-      "password": "123456"
-    }'
-  ```
+  `bash
+	curl -X POST http://localhost:3000/auth/register \
+		-H "Content-Type: application/json" \
+		-d '{
+			"name": "Juan",
+			"lastname": "Pérez",
+			"email": "juan@example.com",
+			"password": "123456"
+		}'
+	`
 
 ---
 
@@ -48,25 +48,26 @@
     ```json
     {
       "code": 200,
-      "msg": "Login exitoso.",
+      "msg": "success",
       "data": {
-        "token": "<jwt_token>"
+        "accessToken": "<jwt_token>",
+        "refreshToken": "<refresh_token>"
       }
     }
     ```
 - **Ejemplo cURL:**
-  ```bash
-  curl -X POST http://localhost:3000/auth/login \
-    -H "Content-Type: application/json" \
-    -d '{
-      "email": "juan@example.com",
-      "password": "123456"
-    }'
-  ```
+  `bash
+	curl -X POST http://localhost:3000/auth/login \
+		-H "Content-Type: application/json" \
+		-d '{
+			"email": "juan@example.com",
+			"password": "123456"
+		}'
+	`
 
 ---
 
-### 3. Recuperar contraseña (falta implementación)
+### 3. Recuperar contraseña
 
 - **URL:** `/auth/forgot`
 - **Método:** `POST`
@@ -78,58 +79,187 @@
     ```json
     {
       "code": 200,
-      "msg": "Correo de recuperación enviado.",
+      "msg": "Email de recuperación enviado correctamente.",
       "data": null
     }
     ```
 - **Ejemplo cURL:**
-  ```bash
-  curl -X POST http://localhost:3000/auth/forgot \
-    -H "Content-Type: application/json" \
-    -d '{
-      "email": "juan@example.com"
-    }'
-  ```
+  `bash
+	curl -X POST http://localhost:3000/auth/forgot \
+		-H "Content-Type: application/json" \
+		-d '{
+			"email": "juan@example.com"
+		}'
+	`
 
 ---
 
-### 4. Cambiar contraseña
+### 4. Refrescar token de acceso
 
-- **URL:** `/auth/change-password`
-- **Método:** `PATCH`
-- **Body requerido (JSON):**
-  - `email` (string, requerido)
-  - `oldPassword` (string, requerido)
-  - `newPassword` (string, requerido)
+- **URL:** `/auth/refresh`
+- **Método:** `POST`
+- **Headers requeridos:**
+  - `Authorization: Bearer <refresh_token>`
 - **Respuesta exitosa:**
   - Código: `200`
   - Ejemplo:
     ```json
     {
       "code": 200,
-      "msg": "Contraseña actualizada correctamente.",
-      "data": null
+      "msg": "Token de acceso generado correctamente",
+      "data": {
+        "accessToken": "<nuevo_access_token>"
+      }
     }
     ```
 - **Ejemplo cURL:**
-  ```bash
-  curl -X PATCH http://localhost:3000/auth/change-password \
-    -H "Content-Type: application/json" \
-    -d '{
-      "email": "juan@example.com",
-      "oldPassword": "123456",
-      "newPassword": "654321"
-    }'
-  ```
+  `bash
+	curl -X POST http://localhost:3000/auth/refresh \
+		-H "Authorization: Bearer <refresh_token>"
+	`
 
 ---
 
-### 5. Eliminar usuario
+### 5. Resetear contraseña (requiere token de recuperación)
 
-- **URL:** `/auth`
+- **URL:** `/auth/reset-password`
+- **Método:** `PATCH`
+- **Headers requeridos:**
+  - `Authorization: Bearer <forgot_token>`
+- **Body requerido (JSON):**
+  - `newPassword` (string, requerido)
+  - `confirmPassword` (string, requerido)
+- **Respuesta exitosa:**
+  - Código: `200`
+  - Ejemplo:
+    ```json
+    {
+      "code": 200,
+      "msg": "Contraseña actualizada correctamente",
+      "data": true
+    }
+    ```
+- **Ejemplo cURL:**
+  `bash
+	curl -X PATCH http://localhost:3000/auth/reset-password \
+		-H "Authorization: Bearer <forgot_token>" \
+		-H "Content-Type: application/json" \
+		-d '{
+			"newPassword": "nueva123",
+			"confirmPassword": "nueva123"
+		}'
+	`
+
+---
+
+### 6. Obtener todos los usuarios (protegido)
+
+- **URL:** `/auth/`
+- **Método:** `GET`
+- **Headers requeridos:**
+  - `Authorization: Bearer <access_token>`
+- **Respuesta exitosa:**
+  - Código: `200`
+  - Ejemplo:
+    ```json
+    {
+      "code": 200,
+      "msg": "success",
+      "data": [
+        {
+          "_id": "...",
+          "name": "...",
+          "lastname": "...",
+          "email": "..."
+        }
+      ]
+    }
+    ```
+- **Ejemplo cURL:**
+  `bash
+	curl -X GET http://localhost:3000/auth/ \
+		-H "Authorization: Bearer <access_token>"
+	`
+
+---
+
+### 7. Actualizar usuario (protegido)
+
+- **URL:** `/auth/`
+- **Método:** `PATCH`
+- **Headers requeridos:**
+  - `Authorization: Bearer <access_token>`
+- **Body requerido (JSON):**
+  - `name` (string, requerido)
+  - `lastname` (string, requerido)
+- **Respuesta exitosa:**
+  - Código: `200`
+  - Ejemplo:
+    ```json
+    {
+      "code": 200,
+      "msg": "Usuario actualizado correctamente.",
+      "data": {
+        "_id": "...",
+        "name": "...",
+        "lastname": "...",
+        "email": "..."
+      }
+    }
+    ```
+- **Ejemplo cURL:**
+  `bash
+	curl -X PATCH http://localhost:3000/auth/ \
+		-H "Authorization: Bearer <access_token>" \
+		-H "Content-Type: application/json" \
+		-d '{
+			"name": "NuevoNombre",
+			"lastname": "NuevoApellido"
+		}'
+	`
+
+---
+
+### 8. Cambiar contraseña (protegido)
+
+- **URL:** `/auth/change-password`
+- **Método:** `PATCH`
+- **Headers requeridos:**
+  - `Authorization: Bearer <access_token>`
+- **Body requerido (JSON):**
+  - `password` (string, requerido)
+  - `newPassword` (string, requerido)
+  - `confirmPassword` (string, requerido)
+- **Respuesta exitosa:**
+  - Código: `200`
+  - Ejemplo:
+    ```json
+    {
+      "code": 200,
+      "msg": "Contraseña actualizada correctamente",
+      "data": true
+    }
+    ```
+- **Ejemplo cURL:**
+  `bash
+	curl -X PATCH http://localhost:3000/auth/change-password \
+		-H "Authorization: Bearer <access_token>" \
+		-H "Content-Type: application/json" \
+		-d '{
+			"password": "actual123",
+			"newPassword": "nueva123",
+			"confirmPassword": "nueva123"
+		}'
+	`
+
+---
+
+### 9. Eliminar usuario (protegido)
+
+- **URL:** `/auth/`
 - **Método:** `DELETE`
 - **Headers requeridos:**
-  - `Authorization: Bearer <jwt_token>`
+  - `Authorization: Bearer <access_token>`
 - **Respuesta exitosa:**
   - Código: `200`
   - Ejemplo:
@@ -137,19 +267,19 @@
     {
       "code": 200,
       "msg": "Usuario eliminado correctamente.",
-      "data": null
+      "data": true
     }
     ```
 - **Ejemplo cURL:**
-  ```bash
-  curl -X DELETE http://localhost:3000/auth \
-    -H "Authorization: Bearer <jwt_token>"
-  ```
+  `bash
+	curl -X DELETE http://localhost:3000/auth/ \
+		-H "Authorization: Bearer <access_token>"
+	`
 
 ---
 
 ## Notas
 
 - Todos los endpoints retornan errores con un objeto JSON que incluye `code`, `msg` y `data`.
-- Reemplaza `<jwt_token>` por el token real obtenido en el login.
+- Reemplaza `<access_token>`, `<refresh_token>`, `<forgot_token>` por los tokens reales obtenidos en el login o recuperación.
 - Cambia `localhost:3000` por la URL y puerto de tu servidor si es diferente.
