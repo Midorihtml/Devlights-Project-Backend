@@ -22,7 +22,7 @@ export function validateToken(typeJWT: "ACCESS" | "REFRESH") {
     if (!id || !exp || !iat) throw new UnauthorizedException("Token inválido.");
     if (exp - iat > Number(process.env[`JWT_${typeJWT}_TIME_EXP`]))
       throw new UnauthorizedException();
-    req.user = { id };
+    req.user = { _id: id };
     next();
   };
 }
