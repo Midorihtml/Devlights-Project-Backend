@@ -15,7 +15,7 @@ authRouter.patch("/:id", authController.update);
 authRouter.post("/login", authController.login);
 authRouter.post("/register", authController.register);
 authRouter.post("/forgot", authController.forgot);
-authRouter.put("/change-password", authController.changePassword);
+authRouter.patch("/:id/change-password", authController.changePassword);
 authRouter.delete("/:id", authController.delete);
 
 export { authRouter };

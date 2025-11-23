@@ -8,6 +8,10 @@ export class MongoUserRepository implements IUserRepository {
     return await User.find({}, { _id: 1, name: 1, lastname: 1, email: 1, deletedAt: 1 });
   };
 
+  findById = async (_id: string) => {
+    return await User.findById({ _id });
+  };
+
   createUser = async (newUser: TUser): Promise<IUser> => {
     return await User.create(newUser);
   };
@@ -18,6 +22,10 @@ export class MongoUserRepository implements IUserRepository {
 
   findByEmail = async (email: string): Promise<IUser | null> => {
     return await User.findOne({ email });
+  };
+
+  changePassword = async (id: string, update: Partial<IUser>): Promise<boolean> => {
+    return Boolean(await User.findByIdAndUpdate(id, update));
   };
 
   update = async (id: string, update: Partial<IUser>): Promise<IUser | null> => {

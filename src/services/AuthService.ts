@@ -4,6 +4,7 @@ import type { TUser } from "@src/types/TUser";
 import { UnauthorizedException } from "@src/exceptions/UnauthorizedException";
 import { JWTBuilder } from "@src/lib/JWTBuilder";
 import type { IUser } from "@src/interfaces/IUser";
+import { BadRequestException, DatabaseException } from "@src/exceptions";
 
 export class AuthService {
   userRepository: IUserRepository;
@@ -55,6 +56,24 @@ export class AuthService {
   };
 
   forgot = () => {};
+
+  changePassword = async (
+    id: string,
+    password: string,
+    newPassword: string,
+    confirmPassword: string,
+  ) => {
+    const user = await this.userRepository.findById(id);
+    if (!user) throw new DatabaseException("Usuario no encontrado", 404);
+    const isAllowed = bcrypt.compareSync(password, user?.password || "");
+    if (!isAllowed) throw new UnauthorizedException("Contraseña incorrecta.");
+    if (newPassword !== confirmPassword)
+      throw new BadRequestException("Las contraseñas no coinciden.");
+
+    const salt = bcrypt.genSaltSync(10);
+    const newPasswordHash = bcrypt.hashSync(newPassword, salt);
+    return await this.userRepository.changePassword(id, { password: newPasswordHash });
+  };
 
   update = (id: string, update: Partial<IUser>) => {
     return this.userRepository.update(id, update);

@@ -38,7 +38,23 @@ export class AuthController {
   };
 
   forgot = (req: Request, res: Response, next: NextFunction) => {};
-  changePassword = (req: Request, res: Response, next: NextFunction) => {};
+
+  changePassword = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { password, newPassword, confirmPassword } = req.body;
+    if (!id) throw new BadRequestException("Identificador de usuario no definido o inválido.");
+    if (!password || !newPassword || !confirmPassword)
+      throw new BadRequestException("Contraseña no definida o inválida.");
+    const isUpdatedPassword = await this.authService.changePassword(
+      id,
+      password,
+      newPassword,
+      confirmPassword,
+    );
+
+    if (!isUpdatedPassword) throw new DatabaseException("Error al actualizar contraseña.");
+    res.send({ code: StatusCode.OK, msg: "success", data: isUpdatedPassword });
+  };
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
