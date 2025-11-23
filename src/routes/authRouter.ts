@@ -24,8 +24,8 @@ authRouter.use(validateToken("ACCESS"));
 authRouter.use(addUserToReq);
 
 authRouter.get("/", authController.findAll);
-authRouter.patch("/:id", authController.update);
-authRouter.patch("/:id/change-password", authController.changePassword);
-authRouter.delete("/:id", authController.delete);
+authRouter.patch("/", authController.update);
+authRouter.patch("/change-password", authController.changePassword);
+authRouter.delete("/", authController.delete);
 
 export { authRouter };

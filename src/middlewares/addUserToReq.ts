@@ -8,7 +8,12 @@ export async function addUserToReq(req: Request, _res: Response, next: NextFunct
   const { sub: id } = JWTBuilder.decode(token);
   if (!id) throw new JWTException("Token inválido.");
   const userRepository = new MongoUserRepository();
-  const user = await userRepository.findById(id);
-  req.user = Object.assign(req.user || {}, user);
+  const user = (await userRepository.findById(id))?.toObject();
+  if (!user) {
+    req.user = null;
+    next();
+    return;
+  }
+  req.user = Object.assign(req.user || {}, { ...user, _id: user._id?.toString() });
   next();
 }
