@@ -1,12 +1,14 @@
+import { JWTException } from "@src/exceptions";
+import { JWTBuilder } from "@src/lib/JWTBuilder";
 import { MongoUserRepository } from "@src/repositories/MongoUserRepository";
 import type { Request, Response, NextFunction } from "express";
 
 export async function addUserToReq(req: Request, _res: Response, next: NextFunction) {
-  const _id = req.user?._id?.toString();
-  if (!_id) return next();
+  const token = req.token || "";
+  const { sub: id } = JWTBuilder.decode(token);
+  if (!id) throw new JWTException("Token inválido.");
   const userRepository = new MongoUserRepository();
-  const user = await userRepository.findById(_id);
-  if (!user) return next();
+  const user = await userRepository.findById(id);
   req.user = Object.assign(req.user || {}, user);
   next();
 }
