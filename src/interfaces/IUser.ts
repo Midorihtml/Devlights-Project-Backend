@@ -5,4 +5,8 @@ export interface IUser extends Document {
   lastname: string | null;
   email: string | null;
   password: string | null;
+  role: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }

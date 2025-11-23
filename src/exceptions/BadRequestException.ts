@@ -1,13 +1,8 @@
-import type { IError } from "@src/interfaces/IError";
+import { StatusCode } from "@src/enums/StatusCode";
+import { Exception } from "@src/lib/Exception";
 
-export class BadRequestException implements IError {
-  message: string;
-  code: number;
-  context: object;
-
-  constructor(message = "Bad request", code = 400, context = {}) {
-    this.message = message;
-    this.code = code;
-    this.context = context;
+export class BadRequestException extends Exception {
+  constructor(message = "Bad request", code = StatusCode.BadRequest, context = {}) {
+    super(message, code, context);
   }
 }

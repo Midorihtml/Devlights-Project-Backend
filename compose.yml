@@ -11,3 +11,4 @@ services:
       - ${MONGO_INITDB_PORT}:${MONGO_INITDB_PORT}
     volumes:
       - ./mongo_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
