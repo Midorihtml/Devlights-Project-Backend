@@ -42,7 +42,16 @@ export class AuthController {
     });
   };
 
-  forgot = (req: Request, res: Response, next: NextFunction) => {};
+  forgot = async (req: Request, res: Response) => {
+    const { email } = req.body || "";
+    if (!email) throw new BadRequestException("Email de recuperación requerido.");
+    await this.authService.forgot(email);
+    res.send({
+      code: StatusCode.OK,
+      msg: "Email de recuperación enviado correctamente.",
+      data: null,
+    });
+  };
 
   changePassword = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -58,7 +67,11 @@ export class AuthController {
     );
 
     if (!isUpdatedPassword) throw new DatabaseException("Error al actualizar contraseña.");
-    res.send({ code: StatusCode.OK, msg: "success", data: isUpdatedPassword });
+    res.send({
+      code: StatusCode.OK,
+      msg: "Contraseña actualizada correctamente",
+      data: isUpdatedPassword,
+    });
   };
 
   refresh = async (req: Request, res: Response) => {
@@ -66,7 +79,11 @@ export class AuthController {
     if (!refreshToken) throw new UnauthorizedException("Token inválido.");
     const newAccessJwt = await this.authService.refresh(refreshToken);
     if (!newAccessJwt) throw new JWTException("Error al generar token.");
-    res.send({ code: StatusCode.OK, msg: "success", data: { accessToken: newAccessJwt } });
+    res.send({
+      code: StatusCode.OK,
+      msg: "Token de acceso generado correctamente",
+      data: { accessToken: newAccessJwt },
+    });
   };
 
   update = async (req: Request, res: Response) => {
@@ -77,13 +94,13 @@ export class AuthController {
     if (!name || !lastname) throw new BadRequestException("Nombre y apellido requeridos.");
     const updatedUser = await this.authService.update(id, { name, lastname });
     if (!updatedUser) throw new DatabaseException("Error al actualizar usuario.");
-    res.send({ code: StatusCode.OK, msg: "success", data: updatedUser });
+    res.send({ code: StatusCode.OK, msg: "Usuario actualizado correctamente.", data: updatedUser });
   };
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
     if (!id) throw new BadRequestException("Identificador de usuario no definido o inválido.");
     const isDeletedUser = await this.authService.delete(id);
-    res.send({ code: StatusCode.OK, msg: "success", data: isDeletedUser });
+    res.send({ code: StatusCode.OK, msg: "Usuario eliminado correctamente.", data: isDeletedUser });
   };
 }

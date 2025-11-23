@@ -55,7 +55,14 @@ export class AuthService {
     return this.userRepository.createUser(newUser);
   };
 
-  forgot = () => {};
+  forgot = async (email: string) => {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) return;
+    const forgotAccessToken = new JWTBuilder().setSubject(user?.id).setExpiration("FORGOT").build();
+    // TODO implementar servicio de mailer para enviar el token
+    // TODO de forgot y cambie su contraseña
+    console.log(forgotAccessToken);
+  };
 
   changePassword = async (
     id: string,
