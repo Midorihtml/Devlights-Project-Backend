@@ -27,7 +27,7 @@ export class AuthService {
     const payload = {
       name: user.name,
       lastname: user.lastname,
-      role: "admin",
+      role: user.role,
     };
 
     const accessToken = new JWTBuilder()
@@ -48,11 +48,12 @@ export class AuthService {
     };
   };
 
-  register = (newUser: TUser) => {
+  register = async (newUser: TUser) => {
+    const isExistUser = await this.userRepository.findByEmail(newUser.email);
+    if (isExistUser) throw new BadRequestException("El email ya se encuentra registrado.");
     const salt = bcrypt.genSaltSync(10);
     newUser.password = bcrypt.hashSync(newUser.password, salt);
-
-    return this.userRepository.createUser(newUser);
+    return await this.userRepository.createUser(newUser);
   };
 
   forgot = async (email: string) => {
