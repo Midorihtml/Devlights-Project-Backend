@@ -7,6 +7,7 @@ import {
   UnauthorizedException,
 } from "@src/exceptions";
 import { StatusCode } from "@src/enums/StatusCode";
+import { Roles } from "@src/enums/Roles";
 
 export class AuthController {
   authService: AuthService;
@@ -15,7 +16,9 @@ export class AuthController {
     this.authService = authService;
   }
 
-  findAll = async (_req: Request, res: Response) => {
+  findAll = async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user || user.role !== Roles.ADMIN) throw new UnauthorizedException("No autorizado.", 403);
     const users = await this.authService.findAll();
     res.send({ code: StatusCode.OK, msg: "success", data: users });
   };

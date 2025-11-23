@@ -5,7 +5,7 @@ import type { TUser } from "@src/types/TUser";
 
 export class MongoUserRepository implements IUserRepository {
   findAll = async () => {
-    return await User.find({}, { _id: 1, name: 1, lastname: 1, email: 1, deletedAt: 1 });
+    return await User.find({}, { _id: 1, name: 1, lastname: 1, email: 1, role: 1, deletedAt: 1 });
   };
 
   findById = async (_id: string) => {
