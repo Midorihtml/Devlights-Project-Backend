@@ -1,5 +1,7 @@
-import { app } from "@src/app";
+console.log("index.TS");
 
+import { app } from "@src/app";
+console.log("index.TS2");
 const PORT = process.env["PORT"] || 3000;
 const HOST = process.env["HOST"] || "localhost";
 const PROTOCOL = process.env["NODE_ENV"] === "production" ? "https" : "http";

@@ -1,3 +1,4 @@
+console.log("APP.TS");
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
