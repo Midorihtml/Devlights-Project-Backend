@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectDB } from "@src/database/mongo";
 import { authRouter } from "@src/routes/authRouter";
 import { handleErrors } from "@src/middlewares/handleErrors";
+import { extractJWT } from "./middlewares/validateJWT";
 
 const app = express();
 
@@ -16,6 +17,7 @@ await connectDB(URI);
 
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(extractJWT);
 
 app.use("/auth", authRouter);
 
