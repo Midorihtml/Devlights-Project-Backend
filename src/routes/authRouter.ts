@@ -19,7 +19,11 @@ authRouter.post("/forgot", authController.forgot);
 
 // rutas protegidas
 authRouter.post("/refresh", validateToken("REFRESH"), authController.refresh);
-
+authRouter.patch(
+  "/reset-password",
+  [addUserToReq, validateToken("FORGOT")],
+  authController.resetPassword,
+);
 authRouter.use(validateToken("ACCESS"));
 authRouter.use(addUserToReq);
 

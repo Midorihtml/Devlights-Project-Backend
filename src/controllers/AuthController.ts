@@ -53,19 +53,43 @@ export class AuthController {
     });
   };
 
-  changePassword = async (req: Request, res: Response) => {
+  resetPassword = async (req: Request, res: Response) => {
     const id = req.user?._id;
+    const { newPassword, confirmPassword } = req.body;
+    if (!id || typeof id !== "string") throw new UnauthorizedException("No autorizado.");
+    if (!newPassword || !confirmPassword)
+      throw new BadRequestException("Contraseña no definida o inválida.");
+
+    const isUpdatedPassword = await this.authService.resetPassword(
+      id,
+      newPassword,
+      confirmPassword,
+    );
+
+    if (!isUpdatedPassword) throw new DatabaseException("Error al actualizar contraseña.");
+
+    res.send({
+      code: StatusCode.OK,
+      msg: "Contraseña actualizada correctamente",
+      data: isUpdatedPassword,
+    });
+  };
+
+  changePassword = async (req: Request, res: Response) => {
+    const user = req.user;
     const { password, newPassword, confirmPassword } = req.body;
 
-    if (!id || typeof id !== "string") throw new UnauthorizedException("No autorizado.");
+    if (!user || !user._id || !user.password || typeof user._id !== "string")
+      throw new UnauthorizedException("No autorizado.");
     if (!password || !newPassword || !confirmPassword)
       throw new BadRequestException("Contraseña no definida o inválida.");
 
     const isUpdatedPassword = await this.authService.changePassword(
-      id,
+      user?._id,
       password,
       newPassword,
       confirmPassword,
+      user?.password,
     );
 
     if (!isUpdatedPassword) throw new DatabaseException("Error al actualizar contraseña.");
