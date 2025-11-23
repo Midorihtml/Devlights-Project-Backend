@@ -4,12 +4,14 @@ import { UnauthorizedException } from "@src/exceptions";
 
 export class JWTBuilder {
   private secretKey: string;
+  private forgotTimeExp: number;
   private accessTimeExp: number;
   private refreshTimeExp: number;
   private payload: object;
 
   constructor() {
     this.secretKey = process.env["JWT_SECRET_KEY"] || "";
+    this.forgotTimeExp = Number(process.env["JWT_JWT_FORGOT_TIME_EXP"]) || 900; // 15m
     this.accessTimeExp = Number(process.env["JWT_JWT_ACCESS_TIME_EXP"]) || 3600; // 1hs
     this.refreshTimeExp = Number(process.env["JWT_JWT_REFRESH_TIME_EXP"]) || 86400; // 24hs
     if (!this.secretKey) throw new Error("Secret key no definido o inválido.");
@@ -22,10 +24,19 @@ export class JWTBuilder {
     return this;
   };
 
-  public setExpiration = (typeJWT: "ACCESS" | "REFRESH") => {
-    const TIME_EXPIRATION = typeJWT === "ACCESS" ? this.accessTimeExp : this.refreshTimeExp; // 1HS : 24HS
+  private calculateExpirationTime = (typeJWT: "ACCESS" | "REFRESH" | "FORGOT") => {
+    const NOW_IN_SECONDS = Math.floor(Date.now() / 1000);
+    const expirationTime = {
+      FORGOT: NOW_IN_SECONDS + this.forgotTimeExp,
+      ACCESS: NOW_IN_SECONDS + this.accessTimeExp,
+      REFRESH: NOW_IN_SECONDS + this.refreshTimeExp,
+    };
+    return expirationTime[typeJWT];
+  };
+
+  public setExpiration = (typeJWT: "ACCESS" | "REFRESH" | "FORGOT") => {
     this.payload = Object.assign(this.payload, {
-      exp: Math.floor(Date.now() / 1000) + TIME_EXPIRATION,
+      exp: this.calculateExpirationTime(typeJWT),
     });
     return this;
   };
