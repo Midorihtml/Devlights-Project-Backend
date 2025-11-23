@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import type { AuthService } from "@src/services/AuthService";
-import { BadRequestException } from "@src/exceptions/BadRequestException";
-import { DatabaseException } from "@src/exceptions/DatabaseException";
+import { BadRequestException, DatabaseException } from "@src/exceptions";
+import { StatusCode } from "@src/enums/StatusCode";
 
 export class AuthController {
   authService: AuthService;
@@ -10,36 +10,51 @@ export class AuthController {
     this.authService = authService;
   }
 
-  findAll = async (_: Request, res: Response, next: NextFunction) => {
-    try {
-      const users = await this.authService.findAll();
-      res.send({ code: 200, msg: "success", data: users });
-    } catch (error) {
-      next(error);
-    }
+  findAll = async (_req: Request, res: Response) => {
+    const users = await this.authService.findAll();
+    res.send({ code: StatusCode.OK, msg: "success", data: users });
   };
 
-  login = (req: Request, res: Response, next: NextFunction) => {};
+  login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+    if (!email || !password) throw new BadRequestException();
+    const jwt = await this.authService.login({ email, password });
+    res.send({ code: StatusCode.OK, msg: "success", data: jwt });
+  };
 
   register = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { email, password, name, lastname } = req.body;
-      if (!email || !password || !name || !lastname)
-        throw new BadRequestException("Datos invalidos.");
+    const { email, password, name, lastname } = req.body;
+    if (!email || !password || !name || !lastname)
+      throw new BadRequestException("Datos invalidos.");
 
-      const newUser = await this.authService.register(req.body);
-      if (!newUser) throw new DatabaseException("Error al registrar usuario.");
+    const newUser = await this.authService.register(req.body);
+    if (!newUser) throw new DatabaseException("Error al registrar usuario.");
 
-      res.status(201).send({
-        code: 201,
-        msg: "Usuario registrado correctamente.",
-        data: null,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.status(StatusCode.Created).send({
+      code: StatusCode.Created,
+      msg: "Usuario registrado correctamente.",
+      data: null,
+    });
   };
+
   forgot = (req: Request, res: Response, next: NextFunction) => {};
   changePassword = (req: Request, res: Response, next: NextFunction) => {};
-  delete = (req: Request, res: Response, next: NextFunction) => {};
+
+  update = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { name, lastname } = req.body;
+
+    if (!id) throw new BadRequestException("Identificador de usuario no definido o inválido.");
+    if (!name || !lastname) throw new BadRequestException("Nombre y apellido requeridos.");
+    const updatedUser = await this.authService.update(id, { name, lastname });
+    if (!updatedUser) throw new DatabaseException("Error al actualizar usuario.");
+    res.send({ code: StatusCode.OK, msg: "success", data: updatedUser });
+  };
+
+  delete = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) throw new BadRequestException("Identificador de usuario no definido o inválido.");
+    const isDeletedUser = await this.authService.delete(id);
+    res.send({ code: StatusCode.OK, msg: "success", data: isDeletedUser });
+  };
 }

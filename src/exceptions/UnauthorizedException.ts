@@ -1,10 +1,10 @@
 import { StatusCode } from "@src/enums/StatusCode";
 import { Exception } from "@src/lib/Exception";
 
-export class DatabaseException extends Exception {
+export class UnauthorizedException extends Exception {
   constructor(
-    message: string = "Database error.",
-    code: number = StatusCode.InternalServerError,
+    message: string = "No autorizado.",
+    code: number = StatusCode.Unauthorized,
     context = {},
   ) {
     super(message, code, context);

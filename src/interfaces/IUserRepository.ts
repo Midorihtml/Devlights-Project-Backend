@@ -4,8 +4,8 @@ import type { IUser } from "@src/interfaces/IUser";
 export interface IUserRepository {
   findAll: () => Promise<IUser[]>;
   createUser: (newUser: TUser) => Promise<IUser>;
-
-  //   findByEmail(email: string): Promise<IUser | null>;
-  //   updateUser(id: string, update: Partial<IUser>): Promise<IUser | null>;
-  //   deleteUser(id: string): Promise<boolean>;
+  findPasswordByEmail: (email: string) => Promise<string>;
+  findByEmail: (email: string) => Promise<IUser | null>;
+  update: (id: string, update: Partial<IUser>) => Promise<IUser | null>;
+  delete: (id: string) => Promise<boolean>;
 }
