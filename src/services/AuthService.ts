@@ -75,6 +75,17 @@ export class AuthService {
     return await this.userRepository.changePassword(id, { password: newPasswordHash });
   };
 
+  refresh = async (refreshToken: string) => {
+    const decodedRefreshToken = JWTBuilder.decode(refreshToken);
+
+    const newAccessToken = new JWTBuilder()
+      .setPayload(decodedRefreshToken)
+      .setExpiration("ACCESS")
+      .build();
+
+    return newAccessToken;
+  };
+
   update = (id: string, update: Partial<IUser>) => {
     return this.userRepository.update(id, update);
   };

@@ -17,7 +17,7 @@ authRouter.post("/login", authController.login);
 authRouter.post("/forgot", authController.forgot);
 
 // rutas protegidas
-authRouter.post("/refresh", validateToken("REFRESH"), authController.register);
+authRouter.post("/refresh", validateToken("REFRESH"), authController.refresh);
 
 authRouter.use(validateToken("ACCESS"));
 authRouter.use(addUserToReq);

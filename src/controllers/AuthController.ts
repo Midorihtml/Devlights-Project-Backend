@@ -1,6 +1,11 @@
 import type { Request, Response, NextFunction } from "express";
 import type { AuthService } from "@src/services/AuthService";
-import { BadRequestException, DatabaseException } from "@src/exceptions";
+import {
+  BadRequestException,
+  DatabaseException,
+  JWTException,
+  UnauthorizedException,
+} from "@src/exceptions";
 import { StatusCode } from "@src/enums/StatusCode";
 
 export class AuthController {
@@ -54,6 +59,14 @@ export class AuthController {
 
     if (!isUpdatedPassword) throw new DatabaseException("Error al actualizar contraseña.");
     res.send({ code: StatusCode.OK, msg: "success", data: isUpdatedPassword });
+  };
+
+  refresh = async (req: Request, res: Response) => {
+    const refreshToken = req.token;
+    if (!refreshToken) throw new UnauthorizedException("Token inválido.");
+    const newAccessJwt = await this.authService.refresh(refreshToken);
+    if (!newAccessJwt) throw new JWTException("Error al generar token.");
+    res.send({ code: StatusCode.OK, msg: "success", data: { accessToken: newAccessJwt } });
   };
 
   update = async (req: Request, res: Response) => {
