@@ -14,6 +14,7 @@ const authController = new AuthController(authService);
 
 // rutas publicas
 authRouter.post("/login", authController.login);
+authRouter.post("/register", authController.register);
 authRouter.post("/forgot", authController.forgot);
 
 // rutas protegidas
@@ -24,7 +25,6 @@ authRouter.use(addUserToReq);
 
 authRouter.get("/", authController.findAll);
 authRouter.patch("/:id", authController.update);
-authRouter.post("/register", authController.register);
 authRouter.patch("/:id/change-password", authController.changePassword);
 authRouter.delete("/:id", authController.delete);
 
