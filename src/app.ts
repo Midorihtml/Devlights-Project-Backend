@@ -19,6 +19,9 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(extractJWT);
 
+app.get("/", (_req, res) => {
+  res.send("Hola");
+});
 app.use("/auth", authRouter);
 
 app.use(handleErrors);

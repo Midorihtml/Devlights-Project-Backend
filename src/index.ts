@@ -7,3 +7,5 @@ const PROTOCOL = process.env["NODE_ENV"] === "production" ? "https" : "http";
 app.listen(PORT, () => {
   console.log(`🚀 Server listening: ${PROTOCOL}://${HOST}:${PORT}`);
 });
+
+export default app;
