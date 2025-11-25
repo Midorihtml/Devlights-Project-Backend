@@ -3,3 +3,4 @@ mongo_data
 .env
 mongo-init.js
 dist
+.vercel

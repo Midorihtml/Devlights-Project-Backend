@@ -1,11 +1,10 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
-
 import { connectDB } from "@src/database/mongo";
 import { authRouter } from "@src/routes/authRouter";
 import { handleErrors } from "@src/middlewares/handleErrors";
-import { extractJWT } from "./middlewares/validateJWT";
+import { extractJWT } from "@src/middlewares/validateJWT";
 
 const app = express();
 
@@ -26,4 +25,4 @@ app.use("/auth", authRouter);
 
 app.use(handleErrors);
 
-export { app };
+export default app;

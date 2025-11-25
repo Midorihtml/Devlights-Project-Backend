@@ -29,7 +29,8 @@ export default [
       ...prettier.rules,
 
       // 👉 Ejecutar Prettier como regla ESLint
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "linebreak-style": ["error", "windows"]
     }
   }
 ];
