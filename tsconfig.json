@@ -20,8 +20,8 @@
     /* ============================
        ENVIRONMENT SETTINGS
        ============================ */
-    "module": "ESNext",              // usa import/export nativos
-    "moduleResolution": "Node",      // resolución de módulos estilo Node
+    "module": "es2022",              // usa import/export nativos
+    "moduleResolution": "node",      // resolución de módulos estilo Node
     "target": "ES2022",              // output moderno compatible con Node
     "lib": ["ES2022"],               // API moderna de JS
 
@@ -33,9 +33,9 @@
     /* ============================
        OUTPUT EXTRAS
        ============================ */
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
 
     /* ============================
        STRICT TYPE CHECKING
