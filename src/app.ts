@@ -21,7 +21,7 @@ await connectDB(URI);
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3001", "https://holadoc-two.vercel.app/"],
+    origin: ["http://localhost:3001", "https://holadoc-two.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
