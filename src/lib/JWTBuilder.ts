@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { JWTException } from "@src/exceptions/JWTException";
-import { UnauthorizedException } from "@src/exceptions";
+import { JWTException } from "../exceptions/JWTException";
+import { UnauthorizedException } from "../exceptions";
 
 export class JWTBuilder {
   private secretKey: string;

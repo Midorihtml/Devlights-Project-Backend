@@ -1,5 +1,5 @@
-import { StatusCode } from "@src/enums/StatusCode";
-import { Exception } from "@src/lib/Exception";
+import { StatusCode } from "../enums/StatusCode";
+import { Exception } from "../lib/Exception";
 
 export class DatabaseException extends Exception {
   constructor(

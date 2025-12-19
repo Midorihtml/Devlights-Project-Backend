@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
-import type { AuthService } from "@src/services/AuthService";
+import type { AuthService } from "../services/AuthService";
 import {
   BadRequestException,
   DatabaseException,
   JWTException,
   UnauthorizedException,
-} from "@src/exceptions";
-import { StatusCode } from "@src/enums/StatusCode";
-import { Roles } from "@src/enums/Roles";
+} from "../exceptions";
+import { StatusCode } from "../enums/StatusCode";
+import { Roles } from "../enums/Roles";
 
 export class AuthController {
   authService: AuthService;

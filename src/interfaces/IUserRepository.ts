@@ -1,5 +1,5 @@
-import type { TUser } from "@src/types/TUser";
-import type { IUser } from "@src/interfaces/IUser";
+import type { TUser } from "../types/TUser";
+import type { IUser } from "./IUser";
 
 export interface IUserRepository {
   findAll: () => Promise<IUser[]>;

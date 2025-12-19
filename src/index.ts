@@ -1,4 +1,4 @@
-import app from "@src/app";
+import app from "./app";
 
 // if (process.env["NODE_ENV"] === "development") {
 const PORT = process.env["PORT"] || 3000;

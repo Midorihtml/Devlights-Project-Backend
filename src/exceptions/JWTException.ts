@@ -1,6 +1,6 @@
-import { StatusCode } from "@src/enums/StatusCode";
-import type { IError } from "@src/interfaces/IError";
-import { Exception } from "@src/lib/Exception";
+import { StatusCode } from "../enums/StatusCode";
+import type { IError } from "../interfaces/IError";
+import { Exception } from "../lib/Exception";
 
 export class JWTException extends Exception implements IError {
   constructor(

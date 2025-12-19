@@ -1,4 +1,4 @@
-import type { IError } from "@src/interfaces/IError";
+import type { IError } from "../interfaces/IError";
 import type { Request, Response, NextFunction } from "express";
 
 export const handleErrors = (err: IError, _: Request, res: Response, next: NextFunction) => {

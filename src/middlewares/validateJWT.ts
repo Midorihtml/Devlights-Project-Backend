@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import { UnauthorizedException } from "@src/exceptions";
-import { JWTBuilder } from "@src/lib/JWTBuilder";
+import { UnauthorizedException } from "../exceptions";
+import { JWTBuilder } from "../lib/JWTBuilder";
 
 export function extractJWT(req: Request, _res: Response, next: NextFunction) {
   const authorizationHeader = req.headers.authorization || "";

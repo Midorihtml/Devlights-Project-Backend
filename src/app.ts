@@ -2,15 +2,15 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { connectDB } from "@src/database/mongo";
+import { connectDB } from "./database/mongo";
 
-import { authRouter } from "@src/routes/authRouter";
-import { pacienteRouter } from "@src/routes/pacienteRouter";
-import { visitaRouter } from "@src/routes/visitaRouter";
-import { turnoRouter } from "@src/routes/turnoRouter";
-import { rolRouter } from "@src/routes/rolRouter";
-import { handleErrors } from "@src/middlewares/handleErrors";
-import { extractJWT } from "@src/middlewares/validateJWT";
+import { authRouter } from "./routes/authRouter";
+import { pacienteRouter } from "./routes/pacienteRouter";
+import { visitaRouter } from "./routes/visitaRouter";
+import { turnoRouter } from "./routes/turnoRouter";
+import { rolRouter } from "./routes/rolRouter";
+import { handleErrors } from "./middlewares/handleErrors";
+import { extractJWT } from "./middlewares/validateJWT";
 import { addUserToReq } from "./middlewares/addUserToReq";
 
 dotenv.config();
