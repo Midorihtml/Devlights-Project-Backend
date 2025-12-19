@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import dotenv from "dotenv";
 import { connectDB } from "./database/mongo";
 
 import { authRouter } from "./routes/authRouter";
@@ -12,8 +11,6 @@ import { rolRouter } from "./routes/rolRouter";
 import { handleErrors } from "./middlewares/handleErrors";
 import { extractJWT } from "./middlewares/validateJWT";
 import { addUserToReq } from "./middlewares/addUserToReq";
-
-dotenv.config();
 
 const app = express();
 
