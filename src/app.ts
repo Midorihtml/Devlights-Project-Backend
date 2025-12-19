@@ -4,7 +4,7 @@ import morgan from "morgan";
 import { connectDB } from "./database/mongo.js";
 
 import { authRouter } from "./routes/authRouter.js";
-import { pacienteRouter } from "./routes/pacienteRouter";
+import { pacienteRouter } from "./routes/pacienteRouter.js";
 import { visitaRouter } from "./routes/visitaRouter.js";
 import { turnoRouter } from "./routes/turnoRouter";
 import { rolRouter } from "./routes/rolRouter.js";
