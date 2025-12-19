@@ -20,6 +20,7 @@ await connectDB(URI);
 
 app.use(
   cors({
+    credentials: true,
     origin: ["http://localhost:3001", "http://127.0.0.1:3001"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
