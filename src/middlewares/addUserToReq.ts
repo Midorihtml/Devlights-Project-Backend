@@ -5,6 +5,11 @@ import type { Request, Response, NextFunction } from "express";
 
 export async function addUserToReq(req: Request, _res: Response, next: NextFunction) {
   const token = req.token || "";
+  if (!token) {
+    req.user = null;
+    next();
+    return;
+  }
   const { sub: id } = JWTBuilder.decode(token);
   if (!id) throw new JWTException("Token inválido.");
   const userRepository = new MongoUserRepository();

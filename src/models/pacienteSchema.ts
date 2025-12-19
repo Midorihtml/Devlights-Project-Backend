@@ -6,6 +6,7 @@ import { Schema, model, Document } from "mongoose";
 export interface IPaciente extends Document {
   firstName: string;
   lastName: string;
+  email: string;
   age: number;
   dni: string;
   doctor: string;
@@ -19,6 +20,7 @@ export interface IPaciente extends Document {
 const PacienteSchema = new Schema<IPaciente>({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  email: { type: String, required: true },
   age: { type: Number, required: true },
   dni: { type: String, required: true, unique: true },
   doctor: { type: String, required: true },

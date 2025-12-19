@@ -10,6 +10,14 @@ export class MongoTurnoRepository implements ITurnoRepository {
     return TurnoModel.find({ date });
   }
 
+  async findByMonth(month: string): Promise<ITurno[]> {
+    return TurnoModel.find({ date: { $regex: new RegExp(`^${month}`) } });
+  }
+
+  async findByDateAndHour(date: string, hour: string): Promise<ITurno | null> {
+    return TurnoModel.findOne({ date, hour });
+  }
+
   async create(data: Partial<ITurno>): Promise<ITurno> {
     const turno = new TurnoModel(data);
     return turno.save();

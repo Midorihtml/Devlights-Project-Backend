@@ -2,9 +2,21 @@ import type { IError } from "@src/interfaces/IError";
 import type { Request, Response, NextFunction } from "express";
 
 export const handleErrors = (err: IError, _: Request, res: Response, next: NextFunction) => {
-  res.status(err.code || 500).send({
-    code: err.code || 500,
-    msg: err.message || "Servicio no disponible.",
+  let statusCode = err.code || 500;
+  let message = err.message || "Servicio no disponible.";
+
+  // Handle MongoDB duplicate key error
+  if (err.code === 11000) {
+    statusCode = 409;
+    message = "El registro ya existe (dato duplicado).";
+  } else if (statusCode < 100 || statusCode > 599) {
+    // Ensure status code is valid HTTP status
+    statusCode = 500;
+  }
+
+  res.status(statusCode).send({
+    code: statusCode,
+    msg: message,
     data: null,
   });
 

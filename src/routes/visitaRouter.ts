@@ -4,9 +4,9 @@ import { requireAdmin } from "../middlewares/requireRole";
 
 const router = Router();
 
-// Listar visitas por paciente (ADMIN y CUSTOMER)
-router.get("/pacientes/:id/visitas", VisitaController.listarPorPaciente);
+// Listar visitas por paciente (movido a pacienteRouter)
+
 // Crear visita (solo ADMIN)
-router.post("/visitas", requireAdmin, VisitaController.crear);
+router.post("/", requireAdmin, VisitaController.crear);
 
 export { router as visitaRouter };
