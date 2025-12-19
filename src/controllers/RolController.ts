@@ -11,7 +11,7 @@ export class RolController {
   /**
    * Listar roles.
    */
-  static async listar(req: Request, res: Response, next: NextFunction) {
+  static async listar(_req: Request, res: Response, next: NextFunction) {
     try {
       const roles = await rolService.listarRoles();
       res.json(roles);
