@@ -1,6 +1,6 @@
-import { JWTException } from "../exceptions";
-import { JWTBuilder } from "../lib/JWTBuilder";
-import { MongoUserRepository } from "../repositories/MongoUserRepository";
+import { JWTException } from "../exceptions/index.js";
+import { JWTBuilder } from "../lib/JWTBuilder.js";
+import { MongoUserRepository } from "../repositories/MongoUserRepository.js";
 import type { Request, Response, NextFunction } from "express";
 
 export async function addUserToReq(req: Request, _res: Response, next: NextFunction) {

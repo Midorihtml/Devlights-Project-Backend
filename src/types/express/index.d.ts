@@ -1,4 +1,4 @@
-import type { IUser } from "../../interfaces/IUser";
+import type { IUser } from "../../interfaces/IUser.js";
 
 declare module "express-serve-static-core" {
   interface Request {

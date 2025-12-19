@@ -1,5 +1,5 @@
 import "dotenv/config";
-import app from "./app";
+import app from "./app.js";
 
 if (process.env["NODE_ENV"] === "development") {
   const PORT = process.env["PORT"] || 3000;

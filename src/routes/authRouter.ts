@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import { AuthController } from "../controllers/AuthController";
-import { MongoUserRepository } from "../repositories/MongoUserRepository";
-import { AuthService } from "../services/AuthService";
-import { validateToken } from "../middlewares/validateJWT";
-import { addUserToReq } from "../middlewares/addUserToReq";
+import { AuthController } from "../controllers/AuthController.js";
+import { MongoUserRepository } from "../repositories/MongoUserRepository.js";
+import { AuthService } from "../services/AuthService.js";
+import { validateToken } from "../middlewares/validateJWT.js";
+import { addUserToReq } from "../middlewares/addUserToReq.js";
 
 const authRouter = Router();
 

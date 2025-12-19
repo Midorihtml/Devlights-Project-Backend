@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
-import type { IUserRepository } from "../interfaces/IUserRepository";
-import type { TUser } from "../types/TUser";
-import { UnauthorizedException } from "../exceptions/UnauthorizedException";
-import { JWTBuilder } from "../lib/JWTBuilder";
-import type { IUser } from "../interfaces/IUser";
-import { BadRequestException } from "../exceptions";
+import type { IUserRepository } from "../interfaces/IUserRepository.js";
+import type { TUser } from "../types/TUser.js";
+import { UnauthorizedException } from "../exceptions/UnauthorizedException.js";
+import { JWTBuilder } from "../lib/JWTBuilder.js";
+import type { IUser } from "../interfaces/IUser.js";
+import { BadRequestException } from "../exceptions/index.js";
 
 export class AuthService {
   userRepository: IUserRepository;

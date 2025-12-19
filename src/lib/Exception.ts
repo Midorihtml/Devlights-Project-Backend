@@ -1,4 +1,4 @@
-import type { IError } from "../interfaces/IError";
+import type { IError } from "../interfaces/IError.js";
 
 export class Exception implements IError {
   code: number;

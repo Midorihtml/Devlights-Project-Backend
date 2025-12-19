@@ -1,15 +1,15 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { connectDB } from "./database/mongo";
+import { connectDB } from "./database/mongo.js";
 
-import { authRouter } from "./routes/authRouter";
+import { authRouter } from "./routes/authRouter.js";
 import { pacienteRouter } from "./routes/pacienteRouter";
-import { visitaRouter } from "./routes/visitaRouter";
+import { visitaRouter } from "./routes/visitaRouter.js";
 import { turnoRouter } from "./routes/turnoRouter";
-import { rolRouter } from "./routes/rolRouter";
+import { rolRouter } from "./routes/rolRouter.js";
 import { handleErrors } from "./middlewares/handleErrors";
-import { extractJWT } from "./middlewares/validateJWT";
+import { extractJWT } from "./middlewares/validateJWT.js";
 import { addUserToReq } from "./middlewares/addUserToReq";
 
 const app = express();

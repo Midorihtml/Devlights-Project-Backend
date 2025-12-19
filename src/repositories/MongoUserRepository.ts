@@ -1,7 +1,7 @@
-import type { IUserRepository } from "../interfaces/IUserRepository";
-import type { IUser } from "../interfaces/IUser";
-import { User } from "../models/userSchema";
-import type { TUser } from "../types/TUser";
+import type { IUserRepository } from "../interfaces/IUserRepository.js";
+import type { IUser } from "../interfaces/IUser.js";
+import { User } from "../models/userSchema.js";
+import type { TUser } from "../types/TUser.js";
 
 export class MongoUserRepository implements IUserRepository {
   findAll = async () => {
