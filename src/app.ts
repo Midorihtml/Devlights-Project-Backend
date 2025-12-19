@@ -18,7 +18,13 @@ const URI = process.env["MONGO_CONNECTION_URI"] || "";
 
 await connectDB(URI);
 
-app.use(cors()); // Permitir todos los orígenes
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+); // Permitir todos los orígenes
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(extractJWT);
