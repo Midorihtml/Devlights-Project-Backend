@@ -5,13 +5,13 @@ import type { IPacienteRepository } from "../interfaces/IPacienteRepository";
  * Servicio para la gestión de pacientes.
  */
 export class PacienteService {
-  constructor(private repo: IPacienteRepository) {}
+  constructor(private repo: IPacienteRepository) { }
 
   /**
    * Listar pacientes, opcionalmente filtrando por búsqueda.
    */
-  async listarPacientes(search?: string): Promise<IPaciente[]> {
-    return this.repo.findAll(search);
+  async listarPacientes(options?: import("../interfaces/IPacienteRepository").PatientQueryOptions): Promise<import("../interfaces/IPacienteRepository").PatientListResult> {
+    return this.repo.findAll(options);
   }
 
   /**
@@ -19,6 +19,13 @@ export class PacienteService {
    */
   async obtenerPaciente(id: string): Promise<IPaciente | null> {
     return this.repo.findById(id);
+  }
+
+  /**
+   * Obtener detalles de un paciente por Email.
+   */
+  async obtenerPacientePorEmail(email: string): Promise<IPaciente | null> {
+    return this.repo.findByEmail(email);
   }
 
   /**

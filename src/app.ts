@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { connectDB } from "@src/database/mongo";
@@ -12,14 +13,15 @@ import { handleErrors } from "@src/middlewares/handleErrors";
 import { extractJWT } from "@src/middlewares/validateJWT";
 import { addUserToReq } from "./middlewares/addUserToReq";
 
-const app = express();
-
 dotenv.config();
+
+const app = express();
 
 const URI = process.env["MONGO_CONNECTION_URI"] || "";
 
 await connectDB(URI);
 
+app.use(cors({ origin: true, credentials: true })); // Enable CORS with credentials support
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(extractJWT);

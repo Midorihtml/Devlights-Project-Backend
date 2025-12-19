@@ -22,3 +22,13 @@ export function requireCustomer(req: Request, res: Response, next: NextFunction)
   }
   next();
 }
+
+/**
+ * Middleware para permitir cualquier usuario autenticado.
+ */
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Acceso denegado: usuario no autenticado" });
+  }
+  next();
+}

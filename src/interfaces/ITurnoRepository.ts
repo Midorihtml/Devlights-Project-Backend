@@ -5,5 +5,7 @@ import type { ITurno } from "../models/turnoSchema";
  */
 export interface ITurnoRepository {
   findByDate(date: string): Promise<ITurno[]>;
+  findByMonth(month: string): Promise<ITurno[]>;
+  findByDateAndHour(date: string, hour: string): Promise<ITurno | null>;
   create(data: Partial<ITurno>): Promise<ITurno>;
 }
