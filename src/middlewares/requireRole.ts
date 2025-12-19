@@ -7,7 +7,8 @@ import type { IUser } from "../interfaces/IUser";
 export function requireAdmin(req: Request, res: Response, next: NextFunction) {
   const user = req.user as IUser;
   if (user?.role != "ADMIN") {
-    return res.status(403).json({ message: "Acceso denegado: solo administradores" });
+    res.status(403).json({ message: "Acceso denegado: solo administradores" });
+    return;
   }
   next();
 }
@@ -18,7 +19,8 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
 export function requireCustomer(req: Request, res: Response, next: NextFunction) {
   const user = req.user as IUser;
   if (user?.role !== "CUSTOMER") {
-    return res.status(403).json({ message: "Acceso denegado: solo clientes" });
+    res.status(403).json({ message: "Acceso denegado: solo clientes" });
+    return;
   }
   next();
 }
@@ -28,7 +30,8 @@ export function requireCustomer(req: Request, res: Response, next: NextFunction)
  */
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.user) {
-    return res.status(401).json({ message: "Acceso denegado: usuario no autenticado" });
+    res.status(401).json({ message: "Acceso denegado: usuario no autenticado" });
+    return;
   }
   next();
 }

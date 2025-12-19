@@ -38,7 +38,10 @@ export class RolController {
   static async eliminar(req: Request, res: Response, next: NextFunction) {
     try {
       const id = typeof req.params["id"] === "string" ? req.params["id"] : undefined;
-      if (!id) return res.status(400).json({ message: "ID inválido" });
+      if (!id) {
+        res.status(400).json({ message: "ID inválido" });
+        return;
+      }
       await rolService.eliminarRol(id);
       res.status(204).send();
     } catch (err) {
