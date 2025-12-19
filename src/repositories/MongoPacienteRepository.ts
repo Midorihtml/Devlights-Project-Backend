@@ -1,12 +1,14 @@
-import { PacienteModel } from "../models/pacienteSchema";
-import type { IPaciente } from "../models/pacienteSchema";
-import type { IPacienteRepository } from "../interfaces/IPacienteRepository";
+import { PacienteModel } from "../models/pacienteSchema.js";
+import type { IPaciente } from "../models/pacienteSchema.js";
+import type { IPacienteRepository } from "../interfaces/IPacienteRepository.js";
 
 /**
  * Repositorio Mongo para Pacientes.
  */
 export class MongoPacienteRepository implements IPacienteRepository {
-  async findAll(options?: import("../interfaces/IPacienteRepository").PatientQueryOptions): Promise<import("../interfaces/IPacienteRepository").PatientListResult> {
+  async findAll(
+    options?: import("../interfaces/IPacienteRepository").PatientQueryOptions,
+  ): Promise<import("../interfaces/IPacienteRepository").PatientListResult> {
     const { search, firstName, lastName, page = 1, limit = 10 } = options || {};
     const skip = (page - 1) * limit;
     const query: any = {};

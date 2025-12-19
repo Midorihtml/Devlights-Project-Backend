@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import { RolService } from "../services/RolService";
-import { MongoRolRepository } from "../repositories/MongoRolRepository";
+import { RolService } from "../services/RolService.js";
+import { MongoRolRepository } from "../repositories/MongoRolRepository.js";
 
 const rolService = new RolService(new MongoRolRepository());
 

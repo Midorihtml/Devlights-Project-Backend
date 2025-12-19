@@ -1,12 +1,12 @@
-import type { ITurno } from "../models/turnoSchema";
-import type { ITurnoRepository } from "../interfaces/ITurnoRepository";
-import { BadRequestException } from "../exceptions";
+import type { ITurno } from "../models/turnoSchema.js";
+import type { ITurnoRepository } from "../interfaces/ITurnoRepository.js";
+import { BadRequestException } from "../exceptions/index.js";
 
 /**
  * Servicio para la gestión de turnos.
  */
 export class TurnoService {
-  constructor(private repo: ITurnoRepository) { }
+  constructor(private repo: ITurnoRepository) {}
 
   /**
    * Listar turnos por fecha.

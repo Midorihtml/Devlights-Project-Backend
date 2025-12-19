@@ -1,6 +1,6 @@
-import { TurnoModel } from "../models/turnoSchema";
-import type { ITurno } from "../models/turnoSchema";
-import type { ITurnoRepository } from "../interfaces/ITurnoRepository";
+import { TurnoModel } from "../models/turnoSchema.js";
+import type { ITurno } from "../models/turnoSchema.js";
+import type { ITurnoRepository } from "../interfaces/ITurnoRepository.js";
 
 /**
  * Repositorio Mongo para Turnos.

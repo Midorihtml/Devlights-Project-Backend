@@ -1,4 +1,4 @@
-import type { ITurno } from "../models/turnoSchema";
+import type { ITurno } from "../models/turnoSchema.js";
 
 /**
  * Interfaz para el repositorio de Turnos.

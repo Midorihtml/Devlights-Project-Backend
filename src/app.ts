@@ -6,11 +6,11 @@ import { connectDB } from "./database/mongo.js";
 import { authRouter } from "./routes/authRouter.js";
 import { pacienteRouter } from "./routes/pacienteRouter.js";
 import { visitaRouter } from "./routes/visitaRouter.js";
-import { turnoRouter } from "./routes/turnoRouter";
+import { turnoRouter } from "./routes/turnoRouter.js";
 import { rolRouter } from "./routes/rolRouter.js";
-import { handleErrors } from "./middlewares/handleErrors";
+import { handleErrors } from "./middlewares/handleErrors.js";
 import { extractJWT } from "./middlewares/validateJWT.js";
-import { addUserToReq } from "./middlewares/addUserToReq";
+import { addUserToReq } from "./middlewares/addUserToReq.js";
 
 const app = express();
 

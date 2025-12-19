@@ -1,6 +1,6 @@
-import { VisitaModel } from "../models/visitaSchema";
-import type { IVisita } from "../models/visitaSchema";
-import type { IVisitaRepository } from "../interfaces/IVisitaRepository";
+import { VisitaModel } from "../models/visitaSchema.js";
+import type { IVisita } from "../models/visitaSchema.js";
+import type { IVisitaRepository } from "../interfaces/IVisitaRepository.js";
 
 /**
  * Repositorio Mongo para Visitas.

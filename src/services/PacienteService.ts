@@ -1,16 +1,18 @@
-import type { IPaciente } from "../models/pacienteSchema";
-import type { IPacienteRepository } from "../interfaces/IPacienteRepository";
+import type { IPaciente } from "../models/pacienteSchema.js";
+import type { IPacienteRepository } from "../interfaces/IPacienteRepository.js";
 
 /**
  * Servicio para la gestión de pacientes.
  */
 export class PacienteService {
-  constructor(private repo: IPacienteRepository) { }
+  constructor(private repo: IPacienteRepository) {}
 
   /**
    * Listar pacientes, opcionalmente filtrando por búsqueda.
    */
-  async listarPacientes(options?: import("../interfaces/IPacienteRepository").PatientQueryOptions): Promise<import("../interfaces/IPacienteRepository").PatientListResult> {
+  async listarPacientes(
+    options?: import("../interfaces/IPacienteRepository").PatientQueryOptions,
+  ): Promise<import("../interfaces/IPacienteRepository").PatientListResult> {
     return this.repo.findAll(options);
   }
 

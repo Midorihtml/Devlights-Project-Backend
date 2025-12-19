@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { PacienteController } from "../controllers/PacienteController";
-import { VisitaController } from "../controllers/VisitaController";
-import { requireAdmin } from "../middlewares/requireRole";
+import { PacienteController } from "../controllers/PacienteController.js";
+import { VisitaController } from "../controllers/VisitaController.js";
+import { requireAdmin } from "../middlewares/requireRole.js";
 
 const router = Router();
 

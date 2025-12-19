@@ -1,8 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
-import { TurnoService } from "../services/TurnoService";
-import { MongoTurnoRepository } from "../repositories/MongoTurnoRepository";
-import { PacienteService } from "../services/PacienteService";
-import { MongoPacienteRepository } from "../repositories/MongoPacienteRepository";
+import { TurnoService } from "../services/TurnoService.js";
+import { MongoTurnoRepository } from "../repositories/MongoTurnoRepository.js";
+import { PacienteService } from "../services/PacienteService.js";
+import { MongoPacienteRepository } from "../repositories/MongoPacienteRepository.js";
 
 const turnoService = new TurnoService(new MongoTurnoRepository());
 const pacienteService = new PacienteService(new MongoPacienteRepository());

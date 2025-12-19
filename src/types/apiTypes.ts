@@ -1,7 +1,7 @@
-import type { IPaciente } from "../models/pacienteSchema";
-import type { IVisita } from "../models/visitaSchema";
-import type { ITurno } from "../models/turnoSchema";
-import type { IRol } from "../models/rolSchema";
+import type { IPaciente } from "../models/pacienteSchema.js";
+import type { IVisita } from "../models/visitaSchema.js";
+import type { ITurno } from "../models/turnoSchema.js";
+import type { IRol } from "../models/rolSchema.js";
 
 /**
  * Tipo para respuesta de listado de pacientes.

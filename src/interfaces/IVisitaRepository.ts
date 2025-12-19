@@ -1,4 +1,4 @@
-import type { IVisita } from "../models/visitaSchema";
+import type { IVisita } from "../models/visitaSchema.js";
 
 /**
  * Interfaz para el repositorio de Visitas.

@@ -1,5 +1,5 @@
-import type { IRol } from "../models/rolSchema";
-import type { IRolRepository } from "../interfaces/IRolRepository";
+import type { IRol } from "../models/rolSchema.js";
+import type { IRolRepository } from "../interfaces/IRolRepository.js";
 
 /**
  * Servicio para la gestión de roles.

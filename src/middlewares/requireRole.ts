@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { IUser } from "../interfaces/IUser";
+import type { IUser } from "../interfaces/IUser.js";
 
 /**
  * Middleware para permitir solo usuarios con rol ADMIN.

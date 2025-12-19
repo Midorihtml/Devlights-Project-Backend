@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { VisitaController } from "../controllers/VisitaController";
-import { requireAdmin } from "../middlewares/requireRole";
+import { VisitaController } from "../controllers/VisitaController.js";
+import { requireAdmin } from "../middlewares/requireRole.js";
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { RolController } from "../controllers/RolController";
-import { requireAdmin } from "../middlewares/requireRole";
+import { RolController } from "../controllers/RolController.js";
+import { requireAdmin } from "../middlewares/requireRole.js";
 
 const router = Router();
 

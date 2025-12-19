@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import { VisitaService } from "../services/VisitaService";
-import { MongoVisitaRepository } from "../repositories/MongoVisitaRepository";
-import type { IUser } from "../interfaces/IUser";
+import { VisitaService } from "../services/VisitaService.js";
+import { MongoVisitaRepository } from "../repositories/MongoVisitaRepository.js";
+import type { IUser } from "../interfaces/IUser.js";
 
 const visitaService = new VisitaService(new MongoVisitaRepository());
 

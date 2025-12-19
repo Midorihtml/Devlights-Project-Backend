@@ -1,5 +1,5 @@
-import type { IVisita } from "../models/visitaSchema";
-import type { IVisitaRepository } from "../interfaces/IVisitaRepository";
+import type { IVisita } from "../models/visitaSchema.js";
+import type { IVisitaRepository } from "../interfaces/IVisitaRepository.js";
 
 /**
  * Servicio para la gestión de visitas.

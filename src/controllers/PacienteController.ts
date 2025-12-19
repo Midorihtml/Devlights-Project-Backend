@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
-import { PacienteService } from "../services/PacienteService";
-import { MongoPacienteRepository } from "../repositories/MongoPacienteRepository";
-import { VisitaService } from "../services/VisitaService";
-import { MongoVisitaRepository } from "../repositories/MongoVisitaRepository";
-import type { IUser } from "../interfaces/IUser";
+import { PacienteService } from "../services/PacienteService.js";
+import { MongoPacienteRepository } from "../repositories/MongoPacienteRepository.js";
+import { VisitaService } from "../services/VisitaService.js";
+import { MongoVisitaRepository } from "../repositories/MongoVisitaRepository.js";
+import type { IUser } from "../interfaces/IUser.js";
 
 const pacienteService = new PacienteService(new MongoPacienteRepository());
 const visitaService = new VisitaService(new MongoVisitaRepository());

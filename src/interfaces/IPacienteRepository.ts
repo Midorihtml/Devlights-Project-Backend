@@ -1,4 +1,4 @@
-import type { IPaciente } from "../models/pacienteSchema";
+import type { IPaciente } from "../models/pacienteSchema.js";
 
 /**
  * Interfaz para el repositorio de Pacientes.

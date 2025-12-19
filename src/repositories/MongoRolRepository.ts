@@ -1,6 +1,6 @@
-import { RolModel } from "../models/rolSchema";
-import type { IRol } from "../models/rolSchema";
-import type { IRolRepository } from "../interfaces/IRolRepository";
+import { RolModel } from "../models/rolSchema.js";
+import type { IRol } from "../models/rolSchema.js";
+import type { IRolRepository } from "../interfaces/IRolRepository.js";
 
 /**
  * Repositorio Mongo para Roles.
