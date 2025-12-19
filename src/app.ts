@@ -27,14 +27,16 @@ app.use(
 ); // Permitir todos los orígenes
 app.use(express.json());
 app.use(morgan("tiny"));
-app.use(extractJWT);
-app.use(addUserToReq);
 
 app.get("/", (_req, res) => {
   res.send("Hola");
 });
 
 app.use("/auth", authRouter);
+
+app.use(extractJWT);
+app.use(addUserToReq);
+
 app.use("/pacientes", pacienteRouter);
 app.use("/visitas", visitaRouter);
 app.use("/turnos", turnoRouter);
