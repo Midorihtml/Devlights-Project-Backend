@@ -1,8 +1,13 @@
 import type { Request, Response } from "express";
-import type { AuthService } from "../services/AuthService.js";
-} from "../exceptions/index.js";
-import { StatusCode } from "../enums/StatusCode.js";
-import { Roles } from "../enums/Roles.js";
+import type { AuthService } from "../services/AuthService";
+import {
+  BadRequestException,
+  DatabaseException,
+  JWTException,
+  UnauthorizedException,
+} from "../exceptions";
+import { StatusCode } from "../enums/StatusCode";
+import { Roles } from "../enums/Roles";
 
 export class AuthController {
   authService: AuthService;
